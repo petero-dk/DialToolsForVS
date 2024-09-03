@@ -1,22 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
 using System.Windows.Input;
 
 using EnvDTE;
 
 using EnvDTE80;
-
+using Microsoft.VisualStudio.Text.Editor;
+using Microsoft.VisualStudio.TextManager.Interop;
 using Windows.UI.Input;
 
 namespace DialControllerTools
 {
-    internal class DebugController : BaseController
+    internal class DebugController : BaseTextController
     {
         private readonly DTE2 _dte;
         private readonly DebuggerEvents _events;
 
-        public DebugController(RadialControllerMenuItem menuItem, DTE2 dte) : base(menuItem)
+        public DebugController(RadialControllerMenuItem menuItem, DTE2 dte, IVsTextManager textManager) : base(menuItem, textManager)
         {
             _dte = dte;
             // Switched in provider
@@ -57,6 +59,7 @@ namespace DialControllerTools
                     //case (Control: false, Shift: true): _dte.Debugger.Stop(); break;
 
                     case (Control: false, Shift: true): _dte.Debugger.RunToCursor(); break;
+
                     default: _dte.Debugger.Go(); break;
                 }
             }
@@ -125,15 +128,32 @@ namespace DialControllerTools
                         //    // TODO: Find the right command
                         //    _dte.Application.ExecuteCommand("Debug.StepOutNoBreakpoints"); break;
 
-                        case (Control: false, Alt: false, Shift: true): _dte.Debugger.StepInto(); break;
+                        case (Control: true, Alt: false, Shift: false):
+                            Scroll(direction);
+                            break;
+
+                        case (Control: false, Alt: false, Shift: true):
+                            _dte.Debugger.StepInto();
+                            break;
 
                         // any other
-                        default: _dte.Debugger.StepOver(); break;
+                        default:
+                            _dte.Debugger.StepOver();
+                            break;
                     }
                 }
                 else
                 {
-                    _dte.Application.Debugger.StepOut();
+                    switch ((Control: isControlPressed, Alt: isAltPressed, Shift: isShiftPressed))
+                    {
+                        case (Control: true, Alt: false, Shift: false):
+                            Scroll(direction);
+                            break;
+
+                        default:
+                            _dte.Application.Debugger.StepOut();
+                            break;
+                    }
                 }
             }
             else if (debugMode == dbgDebugMode.dbgDesignMode)
@@ -161,6 +181,31 @@ namespace DialControllerTools
 
             }
             return true;
+        }
+
+        private void Scroll(RotationDirection direction)
+        {
+            bool handled = false;
+            if (_dte.ActiveWindow.IsDocument())
+            {
+                IWpfTextView view = GetCurrentTextView();
+
+                if (view != null && view.HasAggregateFocus)
+                {
+                    string cmd = direction == RotationDirection.Left ? "Edit.ScrollLineUp" : "Edit.ScrollLineDown";
+
+                    for (int i = 0; i < DialPackage.Options.LinesToScroll; i++)
+                    {
+                        handled = _dte.Commands.ExecuteCommand(cmd);
+                    }
+                }
+            }
+
+            if (!handled)
+            {
+                string key = direction == RotationDirection.Left ? "{UP}" : "{DOWN}";
+                SendKeys.Send(key);
+            }
         }
 
         private void MoveToBreakpoint(Func<TextSelection, IEnumerable<Breakpoint>, Document, Breakpoint> findBreakpoint)

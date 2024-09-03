@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.TextManager.Interop;
 
 namespace DialControllerTools
 {
@@ -18,7 +19,10 @@ namespace DialControllerTools
             var menuItem = await CreateMenuItemAsync(Moniker, iconFilePath);
             var dte = await provider.GetDteAsync(cancellationToken);
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
-            return new DebugController(menuItem, dte);
+
+            IVsTextManager textManager = await provider.GetServiceAsync<SVsTextManager, IVsTextManager>(cancellationToken);
+
+            return new DebugController(menuItem, dte, textManager);
         }
     }
 }
