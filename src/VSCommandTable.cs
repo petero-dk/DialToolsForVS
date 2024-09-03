@@ -12,7 +12,7 @@ namespace DialControllerTools
     /// </summary>
     internal sealed partial class PackageGuids
     {
-        public const string guidPackageString = "6080a241-4b73-4c04-8443-593502dc0ac1";
+        public const string guidPackageString = "17988373-88A5-4CC2-84C5-398CB93F3B12";
         public static Guid guidPackage = new Guid(guidPackageString);
     }
     /// <summary>

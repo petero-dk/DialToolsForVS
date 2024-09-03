@@ -26,7 +26,7 @@ namespace DialControllerTools
         [Description("Set to true to show the Bookmarks menu")]
         [DefaultValue(true)]
         [TypeConverter(typeof(BooleanConverter))]
-        public bool ShowBookmarksMenu { get; set; } = true;
+        public bool ShowBookmarksMenu { get; set; } = false;
 
         [Category("Menu")]
         [DisplayName("Show Customizable menu")]
@@ -47,7 +47,7 @@ namespace DialControllerTools
         [Description("Set to true to show the Editor menu")]
         [DefaultValue(true)]
         [TypeConverter(typeof(BooleanConverter))]
-        public bool ShowEditorMenu { get; set; } = true;
+        public bool ShowEditorMenu { get; set; } = false;
 
         [Category("Menu")]
         [DisplayName("Show Errors menu")]
@@ -61,14 +61,14 @@ namespace DialControllerTools
         [Description("Set to true to show the Find menu")]
         [DefaultValue(true)]
         [TypeConverter(typeof(BooleanConverter))]
-        public bool ShowFindMenu { get; set; } = true;
+        public bool ShowFindMenu { get; set; } = false;
 
         [Category("Menu")]
         [DisplayName("Show Navigation menu")]
         [Description("Set to true to show the Navigation menu")]
         [DefaultValue(true)]
         [TypeConverter(typeof(BooleanConverter))]
-        public bool ShowNavigationMenu { get; set; } = true;
+        public bool ShowNavigationMenu { get; set; } = false;
 
         [Category("Menu")]
         [DisplayName("Show Scroll menu")]
@@ -82,7 +82,7 @@ namespace DialControllerTools
         [Description("Set to true to show the Zoom menu")]
         [DefaultValue(true)]
         [TypeConverter(typeof(BooleanConverter))]
-        public bool ShowZoomMenu { get; set; } = true;
+        public bool ShowZoomMenu { get; set; } = false;
 
         [Category("Visual Studio Shell")]
         [DisplayName("Show Dial Log")]

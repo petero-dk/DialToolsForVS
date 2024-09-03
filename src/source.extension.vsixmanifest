@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="22e56b3b-9cee-4667-8505-1bc51da8df85" Version="1.0" Language="en-US" Publisher="Mads Kristensen" />
+    <Identity Id="22e56b3b-9cee-4667-8505-1bc51da8df85" Version="1.0" Language="en-US" Publisher="Anben PANGLOSE" />
     <DisplayName>Surface Dial Tools for Visual Studio 64-bit</DisplayName>
     <Description xml:space="preserve">Adds features to Visual Studio specific to the Surface Dial. You don't need a Surface Book or Surface Studio to take advantage of the Surface Dial.</Description>
-    <MoreInfo>https://github.com/madskristensen/DialToolsForVS/blob/master/CHANGELOG.md</MoreInfo>
+    <MoreInfo></MoreInfo>
     <License>Resources\LICENSE</License>
-    <ReleaseNotes>https://github.com/madskristensen/DialToolsForVS</ReleaseNotes>
+    <ReleaseNotes></ReleaseNotes>
     <Icon>Resources\Icon.png</Icon>
     <PreviewImage>Resources\Icon.png</PreviewImage>
     <Tags>surface, dial</Tags>

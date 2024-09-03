@@ -48,13 +48,15 @@ namespace DialControllerTools
                 {
                     // Alt
                     // to have it the same for both modes
-                    case (Control: false, Shift: false) when isAltPressed: _dte.Debugger.RunToCursor(); break;
-                    // Ctrl + Shift
-                    // like Ctrl + Shift  + F5
-                    case (Control: true, Shift: true): _dte.Application.ExecuteCommand("Debug.Restart"); break;
-                    // Shift
-                    // like Shift + F5
-                    case (Control: false, Shift: true): _dte.Debugger.Stop(); break;
+                    //case (Control: false, Shift: false) when isAltPressed: _dte.Debugger.RunToCursor(); break;
+                    //// Ctrl + Shift
+                    //// like Ctrl + Shift  + F5
+                    //case (Control: true, Shift: true): _dte.Application.ExecuteCommand("Debug.Restart"); break;
+                    //// Shift
+                    //// like Shift + F5
+                    //case (Control: false, Shift: true): _dte.Debugger.Stop(); break;
+
+                    case (Control: false, Shift: true): _dte.Debugger.RunToCursor(); break;
                     default: _dte.Debugger.Go(); break;
                 }
             }
@@ -109,19 +111,22 @@ namespace DialControllerTools
                     switch ((Control: isControlPressed, Alt: isAltPressed, Shift: isShiftPressed))
                     {
                         // like F10
-                        case (Control: false, Alt: false, Shift: false): _dte.Debugger.StepOver(); break;
-                        case (Control: false, Alt: true, Shift: false):
-                            // TODO: Find the right command
-                            _dte.Application.ExecuteCommand("Debug.StepOverNoBreakpoints"); break;
-                        // Ctrl
-                        // like F11
-                        case (Control: true, Alt: false, Shift: false): _dte.Debugger.StepInto(); break;
-                        // Shift
-                        // like Shift + F11
-                        case (Control: _, Alt: false, Shift: true): _dte.Debugger.StepOut(); break;
-                        case (Control: _, Alt: true, Shift: true):
-                            // TODO: Find the right command
-                            _dte.Application.ExecuteCommand("Debug.StepOutNoBreakpoints"); break;
+                        //case (Control: false, Alt: false, Shift: false): _dte.Debugger.StepOver(); break;
+                        //case (Control: false, Alt: true, Shift: false):
+                        //    // TODO: Find the right command
+                        //    _dte.Application.ExecuteCommand("Debug.StepOverNoBreakpoints"); break;
+                        //// Ctrl
+                        //// like F11
+                        //case (Control: true, Alt: false, Shift: false): _dte.Debugger.StepInto(); break;
+                        //// Shift
+                        //// like Shift + F11
+                        //case (Control: _, Alt: false, Shift: true): _dte.Debugger.StepOut(); break;
+                        //case (Control: _, Alt: true, Shift: true):
+                        //    // TODO: Find the right command
+                        //    _dte.Application.ExecuteCommand("Debug.StepOutNoBreakpoints"); break;
+
+                        case (Control: false, Alt: false, Shift: true): _dte.Debugger.StepInto(); break;
+
                         // any other
                         default: _dte.Debugger.StepOver(); break;
                     }
