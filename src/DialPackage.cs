@@ -57,7 +57,7 @@ namespace DialControllerTools
                 }
             }
 
-            KnownUIContexts.ShellInitializedContext.WhenActivated(() => ThreadHelper.JoinableTaskFactory.StartOnIdle(InitializeDialControllerHostAsync));
+            KnownUIContexts.ShellInitializedContext.WhenActivated(() => _ = ThreadHelper.JoinableTaskFactory.StartOnIdle(InitializeDialControllerHostAsync));
             await base.InitializeAsync(cancellationToken, progress);
         }
     }

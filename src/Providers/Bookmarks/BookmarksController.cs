@@ -13,9 +13,9 @@ namespace DialControllerTools
 
         public BookmarksController(RadialControllerMenuItem menuItem, DTE2 dte) : base(menuItem)
         {
-            _commands = dte.Commands;
             // Switched in provider
 #pragma warning disable VSTHRD010 // Invoke single-threaded types on Main thread
+            _commands = dte.Commands;
             _events = dte.Events.WindowEvents;
             _events.WindowActivated += OnToolWindowActivated;
 #pragma warning restore VSTHRD010 // Invoke single-threaded types on Main thread

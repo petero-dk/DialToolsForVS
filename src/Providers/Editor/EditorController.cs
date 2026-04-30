@@ -19,8 +19,10 @@ namespace DialControllerTools
         private readonly DTE2 _dte;
 
 #pragma warning disable IDE0044 // Add readonly modifier
+#pragma warning disable CS0649 // Field is never assigned to, and will always have its default value null
         [Import]
         private ICompletionBroker _broker;
+#pragma warning restore CS0649
 #pragma warning restore IDE0044 // Add readonly modifier
         private IWpfTextView _view;
         private delegate string Shift(SnapshotSpan bufferSpan, RotationDirection direction);
@@ -42,8 +44,10 @@ namespace DialControllerTools
         {
             get
             {
+#pragma warning disable VSTHRD010 // Invoke single-threaded types on Main thread
                 if (!_dte.ActiveWindow.IsDocument())
                     return false;
+#pragma warning restore VSTHRD010 // Invoke single-threaded types on Main thread
 
                 _view = GetCurrentTextView();
 
@@ -66,7 +70,9 @@ namespace DialControllerTools
             }
             else
             {
+#pragma warning disable VSTHRD010 // Invoke single-threaded types on Main thread
                 _dte.Commands.ExecuteCommand("Edit.ListMembers");
+#pragma warning restore VSTHRD010 // Invoke single-threaded types on Main thread
             }
 
             return true;

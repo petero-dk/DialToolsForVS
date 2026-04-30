@@ -15,8 +15,10 @@ namespace DialControllerTools
         private readonly IVsTextManager textManager;
 
 #pragma warning disable IDE0044 // Add readonly modifier
+#pragma warning disable CS0649 // Field is never assigned to, and will always have its default value null
         [Import]
         private IVsEditorAdaptersFactoryService editorAdapter;
+#pragma warning restore CS0649
 #pragma warning restore IDE0044 // Add readonly modifier
 
         internal BaseTextController(RadialControllerMenuItem menuItem, IVsTextManager textManager) : base(menuItem)

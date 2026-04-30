@@ -61,7 +61,9 @@ namespace DialControllerTools
 
         public override bool OnRotate(RotationDirection direction)
         {
+#pragma warning disable VSTHRD010 // Invoke single-threaded types on Main thread
             var commands = _dte.Commands;
+#pragma warning restore VSTHRD010 // Invoke single-threaded types on Main thread
             switch (direction)
             {
                 case RotationDirection.Left:

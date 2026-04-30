@@ -19,7 +19,9 @@ namespace DialControllerTools
     public abstract class BaseDialControllerProvider : IDialControllerProvider
     {
         [Import]
+#pragma warning disable CS0649 // Field is never assigned to, and will always have its default value null
         private readonly ICompositionService compositionService;
+#pragma warning restore CS0649
 
         public async Task<IDialController> TryCreateControllerAsync(IAsyncServiceProvider provider, CancellationToken cancellationToken)
         {

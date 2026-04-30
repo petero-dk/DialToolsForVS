@@ -29,17 +29,23 @@ namespace DialControllerTools
 
         public static bool IsSolutionExplorer(this Window window)
         {
+#pragma warning disable VSTHRD010 // Invoke single-threaded types on Main thread
             return IsTool(window) && window.Type == vsWindowType.vsWindowTypeSolutionExplorer;
+#pragma warning restore VSTHRD010 // Invoke single-threaded types on Main thread
         }
 
         public static bool IsErrorList(this Window window)
         {
+#pragma warning disable VSTHRD010 // Invoke single-threaded types on Main thread
             return IsTool(window) && window.ObjectKind == WindowKinds.vsWindowKindErrorList;
+#pragma warning restore VSTHRD010 // Invoke single-threaded types on Main thread
         }
 
         public static bool IsBookmarks(this Window window)
         {
+#pragma warning disable VSTHRD010 // Invoke single-threaded types on Main thread
             return IsTool(window) && window.ObjectKind == WindowKinds.vsWindowKindBookmarks;
+#pragma warning restore VSTHRD010 // Invoke single-threaded types on Main thread
         }
 
         public static bool IsDocument(this Window window) => window?.Kind == "Document";
@@ -47,14 +53,17 @@ namespace DialControllerTools
 
         public static bool IsFindResults(this Window window)
         {
+#pragma warning disable VSTHRD010 // Invoke single-threaded types on Main thread
             return IsTool(window) &&
                 (window.Caption?.StartsWith("Find Results", StringComparison.OrdinalIgnoreCase) == true);
+#pragma warning restore VSTHRD010 // Invoke single-threaded types on Main thread
         }
 
         public static bool ExecuteCommand(this Commands commands, string commandName)
         {
             try
             {
+#pragma warning disable VSTHRD010 // Invoke single-threaded types on Main thread
                 Command command = commands.Item(commandName);
 
                 if (command != null && command.IsAvailable)
@@ -62,6 +71,7 @@ namespace DialControllerTools
                     commands.Raise(command.Guid, command.ID, null, null);
                     return true;
                 }
+#pragma warning restore VSTHRD010 // Invoke single-threaded types on Main thread
             }
             catch (Exception ex)
             {

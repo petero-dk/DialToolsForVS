@@ -307,7 +307,9 @@ namespace DialControllerTools
 
         private void OnControlLost(RadialController sender, object args) => status.IsActive = false;
 
+#pragma warning disable VSTHRD100 // Avoid async void methods
         private async void OnButtonClicked(RadialController sender, RadialControllerButtonClickedEventArgs args)
+#pragma warning restore VSTHRD100 // Avoid async void methods
         {
             if (!await VS.Solutions.IsOpenAsync()) //assume most controllers require a solution
                 return;
@@ -333,7 +335,9 @@ namespace DialControllerTools
             }
         }
 
+#pragma warning disable VSTHRD100 // Avoid async void methods
         private async void OnRotationChanged(RadialController sender, RadialControllerRotationChangedEventArgs args)
+#pragma warning restore VSTHRD100 // Avoid async void methods
         {
             if (!await VS.Solutions.IsOpenAsync()) //assume most controllers require a solution
                 return;
