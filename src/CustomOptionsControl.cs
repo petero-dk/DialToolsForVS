@@ -15,6 +15,7 @@ namespace DialControllerTools
         private string _selectedText;
         private Timer _timer;
         private readonly string commandsString;
+        private int _currentSlot = 1;
 
         private ImmutableArray<string> commands;
         private ImmutableArray<string> Commands
@@ -29,9 +30,7 @@ namespace DialControllerTools
             set
             {
                 customOptions = value;
-                AssignedClickLabel.Text = customOptions.ClickAction;
-                AssignedRightLabel.Text = customOptions.RightAction;
-                AssignedLeftLabel.Text = customOptions.LeftAction;
+                LoadSlot(_currentSlot);
             }
         }
 
@@ -44,13 +43,31 @@ namespace DialControllerTools
             _timer = new Timer();
             _timer.Interval = 300;
             _timer.Tick += Timer_Tick;
+
+            SlotSelector.Items.AddRange(new object[] { "Custom 1", "Custom 2", "Custom 3" });
+            SlotSelector.SelectedIndex = 0;
+            SlotSelector.SelectedIndexChanged += SlotSelector_SelectedIndexChanged;
+        }
+
+        private void SlotSelector_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _currentSlot = SlotSelector.SelectedIndex + 1;
+            if (customOptions != null)
+                LoadSlot(_currentSlot);
+        }
+
+        private void LoadSlot(int slot)
+        {
+            AssignedClickLabel.Text = customOptions.GetClickAction(slot);
+            AssignedRightLabel.Text = customOptions.GetRightAction(slot);
+            AssignedLeftLabel.Text = customOptions.GetLeftAction(slot);
         }
 
         private void AssignClickAction_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(_selectedText))
             {
-                CustomOptions.ClickAction = _selectedText;
+                SetClickAction(_currentSlot, _selectedText);
                 AssignedClickLabel.Text = _selectedText;
             }
         }
@@ -59,7 +76,7 @@ namespace DialControllerTools
         {
             if (!string.IsNullOrEmpty(_selectedText))
             {
-                CustomOptions.RightAction = _selectedText;
+                SetRightAction(_currentSlot, _selectedText);
                 AssignedRightLabel.Text = _selectedText;
             }
         }
@@ -68,8 +85,38 @@ namespace DialControllerTools
         {
             if (!string.IsNullOrEmpty(_selectedText))
             {
-                CustomOptions.LeftAction = _selectedText;
+                SetLeftAction(_currentSlot, _selectedText);
                 AssignedLeftLabel.Text = _selectedText;
+            }
+        }
+
+        private void SetClickAction(int slot, string value)
+        {
+            switch (slot)
+            {
+                case 2: CustomOptions.ClickAction2 = value; break;
+                case 3: CustomOptions.ClickAction3 = value; break;
+                default: CustomOptions.ClickAction = value; break;
+            }
+        }
+
+        private void SetRightAction(int slot, string value)
+        {
+            switch (slot)
+            {
+                case 2: CustomOptions.RightAction2 = value; break;
+                case 3: CustomOptions.RightAction3 = value; break;
+                default: CustomOptions.RightAction = value; break;
+            }
+        }
+
+        private void SetLeftAction(int slot, string value)
+        {
+            switch (slot)
+            {
+                case 2: CustomOptions.LeftAction2 = value; break;
+                case 3: CustomOptions.LeftAction3 = value; break;
+                default: CustomOptions.LeftAction = value; break;
             }
         }
 

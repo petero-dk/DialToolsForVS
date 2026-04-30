@@ -6,8 +6,9 @@ using Windows.UI.Input;
 
 namespace DialControllerTools
 {
-    internal class FindController : BaseController
+    internal class FindController : BaseController, IContextAwareController
     {
+        private readonly DTE2 _dte;
         private readonly Commands _commands;
 
         public override string Moniker => FindControllerProvider.Moniker;
@@ -16,8 +17,16 @@ namespace DialControllerTools
 
         public FindController(RadialControllerMenuItem menuItem, DTE2 dte) : base(menuItem)
         {
+            _dte = dte;
             _commands = dte.Commands;
         }
+
+#pragma warning disable VSTHRD010
+        public int GetContextRelevance(Window activeWindow)
+        {
+            return activeWindow.IsFindResults() ? 100 : 0;
+        }
+#pragma warning restore VSTHRD010
 
         public override bool OnClick()
         {

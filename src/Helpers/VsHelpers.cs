@@ -45,6 +45,12 @@ namespace DialControllerTools
         public static bool IsDocument(this Window window) => window?.Kind == "Document";
         public static bool IsTool(this Window window) => window?.Kind == "Tool";
 
+        public static bool IsFindResults(this Window window)
+        {
+            return IsTool(window) &&
+                (window.Caption?.StartsWith("Find Results", StringComparison.OrdinalIgnoreCase) == true);
+        }
+
         public static bool ExecuteCommand(this Commands commands, string commandName)
         {
             try

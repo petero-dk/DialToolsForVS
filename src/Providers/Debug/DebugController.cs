@@ -97,7 +97,6 @@ namespace DialControllerTools
         {
             dbgDebugMode? debugMode = _dte.Application?.Debugger.CurrentMode;
 
-            // TODO: Find how to determine Historical Debugger enabled
             if (debugMode == dbgDebugMode.dbgBreakMode)
             {
                 bool isShiftPressed = Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift);
@@ -111,8 +110,7 @@ namespace DialControllerTools
                         // like F10
                         case (Control: false, Alt: false, Shift: false): _dte.Debugger.StepOver(); break;
                         case (Control: false, Alt: true, Shift: false):
-                            // TODO: Find the right command
-                            _dte.Application.ExecuteCommand("Debug.StepOverNoBreakpoints"); break;
+                            _dte.Debugger.StepOver(true); break;
                         // Ctrl
                         // like F11
                         case (Control: true, Alt: false, Shift: false): _dte.Debugger.StepInto(); break;
@@ -120,8 +118,7 @@ namespace DialControllerTools
                         // like Shift + F11
                         case (Control: _, Alt: false, Shift: true): _dte.Debugger.StepOut(); break;
                         case (Control: _, Alt: true, Shift: true):
-                            // TODO: Find the right command
-                            _dte.Application.ExecuteCommand("Debug.StepOutNoBreakpoints"); break;
+                            _dte.Debugger.StepOut(true); break;
                         // any other
                         default: _dte.Debugger.StepOver(); break;
                     }
