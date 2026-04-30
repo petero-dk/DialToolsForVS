@@ -16,7 +16,9 @@ namespace DialControllerTools
 
         public UndoRedoController(RadialControllerMenuItem menuItem, DTE2 dte) : base(menuItem)
         {
+#pragma warning disable VSTHRD010 // Invoke single-threaded types on Main thread
             _commands = dte.Commands;
+#pragma warning restore VSTHRD010 // Invoke single-threaded types on Main thread
         }
 
         public override bool OnClick()

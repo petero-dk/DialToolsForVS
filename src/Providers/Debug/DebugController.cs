@@ -180,6 +180,7 @@ namespace DialControllerTools
     {
         public int Compare(Breakpoint x, Breakpoint y)
         {
+#pragma warning disable VSTHRD010 // Invoke single-threaded types on Main thread
             if (x.File == y.File)
             {
                 return x.FileLine.CompareTo(y.FileLine);
@@ -188,6 +189,7 @@ namespace DialControllerTools
             {
                 return string.Compare(x.File, y.File);
             }
+#pragma warning restore VSTHRD010 // Invoke single-threaded types on Main thread
         }
     }
 }

@@ -18,7 +18,9 @@ namespace DialControllerTools
 
         public CustomizableController(RadialControllerMenuItem menuItem, DTE2 dte, string moniker, int slot = 1) : base(menuItem)
         {
+#pragma warning disable VSTHRD010 // Invoke single-threaded types on Main thread
             _commands = dte.Commands;
+#pragma warning restore VSTHRD010 // Invoke single-threaded types on Main thread
             _moniker = moniker;
             _slot = slot;
         }

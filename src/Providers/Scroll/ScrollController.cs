@@ -17,8 +17,10 @@ namespace DialControllerTools
     {
         private readonly DTE2 _dte;
 #pragma warning disable IDE0044 // Add readonly modifier
+#pragma warning disable CS0649 // Field is never assigned to, and will always have its default value null
         [Import]
         private ICompletionBroker _broker;
+#pragma warning restore CS0649
 #pragma warning restore IDE0044 // Add readonly modifier
 
         public override string Moniker => ScrollControllerProvider.Moniker;
@@ -72,6 +74,7 @@ namespace DialControllerTools
         public override bool OnRotate(RotationDirection direction)
         {
             bool handled = false;
+#pragma warning disable VSTHRD010 // Invoke single-threaded types on Main thread
             if (_dte.ActiveWindow.IsDocument())
             {
                 IWpfTextView view = GetCurrentTextView();
@@ -86,6 +89,7 @@ namespace DialControllerTools
                     }
                 }
             }
+#pragma warning restore VSTHRD010 // Invoke single-threaded types on Main thread
 
             if (!handled)
             {
