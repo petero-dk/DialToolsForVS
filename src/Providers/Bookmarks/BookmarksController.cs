@@ -6,7 +6,7 @@ using Windows.UI.Input;
 
 namespace DialControllerTools
 {
-    internal class BookmarksController : BaseController
+    internal class BookmarksController : BaseController, IContextAwareController
     {
         private readonly Commands _commands;
         private readonly WindowEvents _events;
@@ -25,6 +25,11 @@ namespace DialControllerTools
         {
             if (GotFocus.IsBookmarks()) DialPackage.DialControllerHost.RequestActivation(this);
             else if (LostFocus.IsBookmarks()) DialPackage.DialControllerHost.ReleaseActivation();
+        }
+
+        public int GetContextRelevance(Window activeWindow)
+        {
+            return activeWindow.IsBookmarks() ? 100 : 0;
         }
 
         public override string Moniker => BookmarksControllerProvider.Moniker;

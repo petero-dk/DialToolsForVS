@@ -129,7 +129,7 @@ namespace DialControllerTools
             radialController.RotationChanged += OnRotationChanged;
             radialController.ButtonClicked += OnButtonClicked;
             radialController.ControlAcquired += OnControlAcquired;
-            //radialController.ControlLost += OnControlLost;
+            radialController.ControlLost += OnControlLost;
             controllersMapping.Add(hwnd, radialController);
         }
 
@@ -138,7 +138,7 @@ namespace DialControllerTools
             radialController.RotationChanged -= OnRotationChanged;
             radialController.ButtonClicked -= OnButtonClicked;
             radialController.ControlAcquired -= OnControlAcquired;
-            //radialController.ControlLost -= OnControlLost;
+            radialController.ControlLost -= OnControlLost;
         }
 
         private static void SetDefaultItems(IntPtr hwnd)
@@ -201,8 +201,43 @@ namespace DialControllerTools
 
         public void ApplyCurrentControllerStateForWindow(Window window)
         {
+            if (DialPackage.Options.EnableSmartMode && !allowRelease)
+                EvaluateSmartMode(window);
+
             var radialController = controllersMapping[new WindowInteropHelper(window).Handle];
             ApplyCurrentControllerState(radialController);
+        }
+
+        private void EvaluateSmartMode(Window wpfWindow)
+        {
+            try
+            {
+#pragma warning disable VSTHRD010 // Radial Controller events occur on the UI thread
+                var dte = Community.VisualStudio.Toolkit.VS.GetRequiredService<EnvDTE.DTE, EnvDTE80.DTE2>();
+                var activeWindow = dte.ActiveWindow;
+#pragma warning restore VSTHRD010
+                if (activeWindow == null) return;
+
+                int bestScore = 0;
+                IDialController bestController = null;
+
+                foreach (var controller in enabledControllers)
+                {
+                    if (controller is IContextAwareController contextAware)
+                    {
+                        int score = contextAware.GetContextRelevance(activeWindow);
+                        if (score > bestScore)
+                        {
+                            bestScore = score;
+                            bestController = controller;
+                        }
+                    }
+                }
+
+                if (bestController != null)
+                    CurrentController = bestController;
+            }
+            catch { }
         }
 
         private void ApplyCurrentControllerState(RadialController radialController)
@@ -249,7 +284,7 @@ namespace DialControllerTools
 
         private void OnControlAcquired(RadialController sender, RadialControllerControlAcquiredEventArgs args)
         {
-            //_status.IsActive = true;
+            status.IsActive = true;
             MenuItemSelected(sender);
         }
 
@@ -270,7 +305,7 @@ namespace DialControllerTools
             }
         }
 
-        //private void OnControlLost(RadialController sender, object args) => _status.IsActive = false;
+        private void OnControlLost(RadialController sender, object args) => status.IsActive = false;
 
         private async void OnButtonClicked(RadialController sender, RadialControllerButtonClickedEventArgs args)
         {

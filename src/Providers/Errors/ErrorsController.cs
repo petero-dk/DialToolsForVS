@@ -10,7 +10,7 @@ using Windows.UI.Input;
 
 namespace DialControllerTools
 {
-    internal class ErrorsController : BaseController
+    internal class ErrorsController : BaseController, IContextAwareController
     {
         private readonly DTE2 _dte;
         private readonly IErrorList _errorList;
@@ -45,6 +45,13 @@ namespace DialControllerTools
 #pragma warning disable VSTHRD010 // Invoke single-threaded types on Main thread
         public override void OnActivate() => _dte.ToolWindows.ErrorList.Parent?.Activate();
 #pragma warning restore VSTHRD010 // Invoke single-threaded types on Main thread
+
+        public int GetContextRelevance(Window activeWindow)
+        {
+            if (activeWindow.IsErrorList() && _errorList.TableControl.Entries.Any())
+                return 100;
+            return 0;
+        }
 
         public override bool OnClick()
         {

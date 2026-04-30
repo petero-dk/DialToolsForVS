@@ -84,6 +84,41 @@ namespace DialControllerTools
         [TypeConverter(typeof(BooleanConverter))]
         public bool ShowZoomMenu { get; set; } = true;
 
+        [Category("Menu")]
+        [DisplayName("Show Custom 2 menu")]
+        [Description("Set to true to show the second custom controls menu")]
+        [DefaultValue(false)]
+        [TypeConverter(typeof(BooleanConverter))]
+        public bool ShowCustom2Menu { get; set; } = false;
+
+        [Category("Menu")]
+        [DisplayName("Show Custom 3 menu")]
+        [Description("Set to true to show the third custom controls menu")]
+        [DefaultValue(false)]
+        [TypeConverter(typeof(BooleanConverter))]
+        public bool ShowCustom3Menu { get; set; } = false;
+
+        [Category("Menu")]
+        [DisplayName("Show Undo/Redo menu")]
+        [Description("Set to true to show the Undo/Redo menu")]
+        [DefaultValue(true)]
+        [TypeConverter(typeof(BooleanConverter))]
+        public bool ShowUndoRedoMenu { get; set; } = true;
+
+        [Category("Menu")]
+        [DisplayName("Show Copilot menu")]
+        [Description("Set to true to show the Copilot menu for cycling through AI suggestions")]
+        [DefaultValue(true)]
+        [TypeConverter(typeof(BooleanConverter))]
+        public bool ShowCopilotMenu { get; set; } = true;
+
+        [Category("General")]
+        [DisplayName("Enable Smart Mode")]
+        [Description("Automatically switch the active dial tool based on the current VS context (e.g., switch to Errors when the Error List is focused).")]
+        [DefaultValue(false)]
+        [TypeConverter(typeof(BooleanConverter))]
+        public bool EnableSmartMode { get; set; } = false;
+
         [Category("Visual Studio Shell")]
         [DisplayName("Show Dial Log")]
         [Description("Set to true to show the Surface Dial log in the Output window")]
@@ -123,6 +158,10 @@ namespace DialControllerTools
                 {KnownProviders.Navigation.ToString(), ShowNavigationMenu },
                 {KnownProviders.Scroll.ToString(), ShowScrollMenu },
                 {KnownProviders.Zoom.ToString(), ShowZoomMenu },
+                {KnownProviders.Custom2.ToString(), ShowCustom2Menu },
+                {KnownProviders.Custom3.ToString(), ShowCustom3Menu },
+                {KnownProviders.UndoRedo.ToString(), ShowUndoRedoMenu },
+                {KnownProviders.Copilot.ToString(), ShowCopilotMenu },
             };
         }
 

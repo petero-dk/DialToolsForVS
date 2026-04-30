@@ -1,6 +1,6 @@
 # Surface Dial Tools for Visual Studio
 
-[![Build status](https://ci.appveyor.com/api/projects/status/nk7vmh0assdw98da?svg=true)](https://ci.appveyor.com/project/madskristensen/dialtoolsforvs)
+[![Build](https://github.com/madskristensen/DialToolsForVS/actions/workflows/build.yml/badge.svg)](https://github.com/madskristensen/DialToolsForVS/actions/workflows/build.yml)
 
 Download this extension from the [Marketplace](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.SurfaceDialToolsforVisualStudio)
 or get the [CI build](http://vsixgallery.com/extension/d4ce1d82-9bf6-4136-bd56-43cde615e0db/).
@@ -23,6 +23,11 @@ See the [change log](CHANGELOG.md) for changes and road map.
 - Errors
 - Editor shifters
 - Bookmarks
+- Find
+- Undo/Redo
+- Copilot (AI suggestions)
+- Custom slots (up to 3)
+- Smart Mode (context-aware auto-switching)
 
 ![Dial Menu](art/dial-animation.gif)
 
@@ -97,6 +102,49 @@ Set and navigate to your bookmarks
 - **Click**: toggle bookmark
 
 When the Bookmarks window is activated, the Bookmarks dial item is automatically activated as well.
+
+### Find
+Navigate through find results.
+
+- **Rotate right**: go to next location
+- **Rotate left**: go to previous location
+- **Click**: open Find in Files dialog
+
+When the Find Results window is activated, the Find dial item is automatically activated as well.
+
+### Undo/Redo
+Scrub through edit history one step at a time.
+
+- **Rotate right**: redo
+- **Rotate left**: undo
+- **Click**: open the Undo History window
+
+Haptic feedback ticks on each undo/redo step.
+
+### Copilot (AI suggestions)
+Cycle through and accept GitHub Copilot inline suggestions without leaving the keyboard.
+
+- **Rotate right**: next suggestion
+- **Rotate left**: previous suggestion
+- **Click**: accept the current suggestion
+- **Shift+Click**: dismiss the current suggestion
+
+### Custom slots
+Up to three fully customizable dial entries, each with independent bindings for click, rotate-left, and rotate-right. Configure them under **Tools → Options → Surface Dial → Custom controls**, using the slot selector to switch between Custom 1, 2, and 3.
+
+Custom 2 and Custom 3 are hidden by default — enable them under **Tools → Options → Surface Dial → General**.
+
+### Smart Mode
+Automatically switches the active dial tool based on what you're doing, without having to manually rotate through the dial menu.
+
+Enable it under **Tools → Options → Surface Dial → General → Enable Smart Mode**.
+
+When active:
+- Switches to **Errors** when the Error List window gains focus and contains errors
+- Switches to **Bookmarks** when the Bookmarks window gains focus
+- Switches to **Find** when the Find Results window gains focus
+
+Manual selection always takes priority; Smart Mode resumes on the next context change.
 
 ## Suggest new behaviors
 Please send ideas about new behaviors you would find helpful to the [GitHub issue tracker](https://github.com/madskristensen/DialToolsForVS/issues).

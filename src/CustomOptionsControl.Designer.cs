@@ -42,6 +42,8 @@
             this.SearchBox = new System.Windows.Forms.TextBox();
             this.SearchBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.RootLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.SlotSelector = new System.Windows.Forms.ComboBox();
+            this.SlotLabel = new System.Windows.Forms.Label();
             this.RootLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -180,9 +182,32 @@
             this.SearchBox.Size = new System.Drawing.Size(674, 31);
             this.SearchBox.TabIndex = 15;
             this.SearchBox.TextChanged += new System.EventHandler(this.SearchBox_TextChanged);
-            // 
+            //
+            // SlotLabel
+            //
+            this.SlotLabel.AutoSize = true;
+            this.SlotLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SlotLabel.Location = new System.Drawing.Point(4, 450);
+            this.SlotLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.SlotLabel.Name = "SlotLabel";
+            this.SlotLabel.Size = new System.Drawing.Size(192, 40);
+            this.SlotLabel.TabIndex = 28;
+            this.SlotLabel.Text = "Custom slot:";
+            this.SlotLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            //
+            // SlotSelector
+            //
+            this.SlotSelector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.RootLayoutPanel.SetColumnSpan(this.SlotSelector, 2);
+            this.SlotSelector.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SlotSelector.Location = new System.Drawing.Point(204, 454);
+            this.SlotSelector.Margin = new System.Windows.Forms.Padding(4);
+            this.SlotSelector.Name = "SlotSelector";
+            this.SlotSelector.Size = new System.Drawing.Size(472, 33);
+            this.SlotSelector.TabIndex = 29;
+            //
             // RootLayoutPanel
-            // 
+            //
             this.RootLayoutPanel.ColumnCount = 3;
             this.RootLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.RootLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -190,15 +215,17 @@
             this.RootLayoutPanel.Controls.Add(this.SearcBoxLabel, 0, 0);
             this.RootLayoutPanel.Controls.Add(this.SearchBox, 0, 1);
             this.RootLayoutPanel.Controls.Add(this.CommandsBox, 0, 2);
-            this.RootLayoutPanel.Controls.Add(this.ClickLabel, 0, 3);
-            this.RootLayoutPanel.Controls.Add(this.RightLabel, 0, 4);
-            this.RootLayoutPanel.Controls.Add(this.LeftLabel, 0, 5);
-            this.RootLayoutPanel.Controls.Add(this.AssignedClickLabel, 1, 3);
-            this.RootLayoutPanel.Controls.Add(this.AssignedRightLabel, 1, 4);
-            this.RootLayoutPanel.Controls.Add(this.AssignedLeftLabel, 1, 5);
-            this.RootLayoutPanel.Controls.Add(this.AssignClickAction, 2, 3);
-            this.RootLayoutPanel.Controls.Add(this.AssignRightAction, 2, 4);
-            this.RootLayoutPanel.Controls.Add(this.AssignLeftAction, 2, 5);
+            this.RootLayoutPanel.Controls.Add(this.SlotLabel, 0, 3);
+            this.RootLayoutPanel.Controls.Add(this.SlotSelector, 1, 3);
+            this.RootLayoutPanel.Controls.Add(this.ClickLabel, 0, 4);
+            this.RootLayoutPanel.Controls.Add(this.RightLabel, 0, 5);
+            this.RootLayoutPanel.Controls.Add(this.LeftLabel, 0, 6);
+            this.RootLayoutPanel.Controls.Add(this.AssignedClickLabel, 1, 4);
+            this.RootLayoutPanel.Controls.Add(this.AssignedRightLabel, 1, 5);
+            this.RootLayoutPanel.Controls.Add(this.AssignedLeftLabel, 1, 6);
+            this.RootLayoutPanel.Controls.Add(this.AssignClickAction, 2, 4);
+            this.RootLayoutPanel.Controls.Add(this.AssignRightAction, 2, 5);
+            this.RootLayoutPanel.Controls.Add(this.AssignLeftAction, 2, 6);
             this.RootLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.RootLayoutPanel.Location = new System.Drawing.Point(0, 0);
             this.RootLayoutPanel.Name = "RootLayoutPanel";
@@ -244,5 +271,7 @@
         private System.Windows.Forms.TextBox SearchBox;
         private System.ComponentModel.BackgroundWorker SearchBackgroundWorker;
         private System.Windows.Forms.TableLayoutPanel RootLayoutPanel;
+        private System.Windows.Forms.ComboBox SlotSelector;
+        private System.Windows.Forms.Label SlotLabel;
     }
 }

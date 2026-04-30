@@ -10,6 +10,10 @@
         Scroll,
         Zoom,
         Find,
-        Customizable
+        Customizable,
+        Custom2,
+        Custom3,
+        UndoRedo,
+        Copilot
     }
 }

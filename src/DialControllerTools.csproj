@@ -28,6 +28,7 @@
     <LangVersion>latest</LangVersion>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <TargetPlatformVersion>10.0.18362.0</TargetPlatformVersion>
+    <RuntimeIdentifiers>win</RuntimeIdentifiers>
     <GeneratePkgDefFile>true</GeneratePkgDefFile>
     <IncludeAssemblyInVSIXContainer>true</IncludeAssemblyInVSIXContainer>
     <IncludeDebugSymbolsInVSIXContainer>true</IncludeDebugSymbolsInVSIXContainer>
@@ -59,6 +60,7 @@
     <Compile Include="Contracts\IDialControllerHost.cs" />
     <Compile Include="Contracts\RotationDirection.cs" />
     <Compile Include="Contracts\IDialController.cs" />
+    <Compile Include="Contracts\IContextAwareController.cs" />
     <Compile Include="Contracts\IDialControllerProvider.cs" />
     <Compile Include="Controller\RadialControllerStatusBarHost.cs" />
     <Compile Include="Controller\StatusbarInjector.cs" />
@@ -84,6 +86,8 @@
     <Compile Include="Providers\BaseController.cs" />
     <Compile Include="Providers\Customizable\CustomizableController.cs" />
     <Compile Include="Providers\Customizable\CustomizableControllerProvider.cs" />
+    <Compile Include="Providers\Customizable\Customizable2ControllerProvider.cs" />
+    <Compile Include="Providers\Customizable\Customizable3ControllerProvider.cs" />
     <Compile Include="Providers\Editor\IntellisenseShifter.cs" />
     <Compile Include="Providers\Editor\NumberShifter.cs" />
     <Compile Include="Providers\Editor\EditorController.cs" />
@@ -104,6 +108,10 @@
     <Compile Include="Providers\Zoom\ZoomControllerProvider.cs" />
     <Compile Include="Providers\Debug\DebugController.cs" />
     <Compile Include="Providers\Debug\DebugControllerProvider.cs" />
+    <Compile Include="Providers\UndoRedo\UndoRedoController.cs" />
+    <Compile Include="Providers\UndoRedo\UndoRedoControllerProvider.cs" />
+    <Compile Include="Providers\Copilot\CopilotController.cs" />
+    <Compile Include="Providers\Copilot\CopilotControllerProvider.cs" />
     <Compile Include="Controller\RadialControllerInterop.cs" />
     <Compile Include="source.extension.cs">
       <DependentUpon>source.extension.vsixmanifest</DependentUpon>
@@ -142,6 +150,10 @@
     </Reference>
     <Reference Include="Microsoft.VisualStudio.Shell.ViewManager">
       <HintPath>$(MSBuildExtensionsPath)\..\Common7\IDE\Microsoft.VisualStudio.Shell.ViewManager.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="PolyType, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+      <HintPath>$(MSBuildExtensionsPath)\..\Common7\IDE\PrivateAssemblies\PolyType.1.x\PolyType.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="PresentationCore" />
@@ -204,6 +216,12 @@
     <Content Include="Providers\Zoom\icon.png">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <Content Include="Providers\UndoRedo\icon.png">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="Providers\Copilot\icon.png">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <EmbeddedResource Include="Resources\commands.txt" />
     <Content Include="Resources\Icon.png">
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -220,13 +238,13 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Community.VisualStudio.Toolkit.17">
-      <Version>17.0.445</Version>
+      <Version>17.0.551</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.SDK">
-      <Version>17.7.37357</Version>
+      <Version>17.14.40265</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Windows.SDK.Contracts">
-      <Version>10.0.22621.755</Version>
+      <Version>10.0.28000.1839</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

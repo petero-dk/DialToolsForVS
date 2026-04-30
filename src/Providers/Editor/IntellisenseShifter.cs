@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Windows.Forms;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 using Microsoft.VisualStudio.Language.Intellisense;
 using Microsoft.VisualStudio.Shell;
@@ -13,8 +14,6 @@ namespace DialControllerTools
         {
             try
             {
-                string key = direction == RotationDirection.Right ? "{DOWN}" : "{UP}";
-
                 if (!broker.IsCompletionActive(view))
                 {
                     ICompletionSession session = broker.TriggerCompletion(view);
@@ -26,16 +25,19 @@ namespace DialControllerTools
 
                     if (active != null)
                     {
-                        SendKeys.SendWait(key);
+                        SelectAdjacentCompletion(session, direction);
                         session.Commit();
-
                         return true;
                     }
                 }
                 else
                 {
-                    SendKeys.Send(key);
-                    return true;
+                    ReadOnlyCollection<ICompletionSession> sessions = broker.GetSessions(view);
+                    if (sessions.Count > 0)
+                    {
+                        SelectAdjacentCompletion(sessions[0], direction);
+                        return true;
+                    }
                 }
             }
             catch (Exception ex)
@@ -46,6 +48,26 @@ namespace DialControllerTools
             }
 
             return false;
+        }
+
+        private static void SelectAdjacentCompletion(ICompletionSession session, RotationDirection direction)
+        {
+            CompletionSet completionSet = session.CompletionSets?.FirstOrDefault();
+            if (completionSet == null) return;
+
+            var completions = completionSet.Completions;
+            if (completions == null || completions.Count == 0) return;
+
+            Completion current = completionSet.SelectionStatus?.Completion;
+            int currentIndex = current != null ? completions.IndexOf(current) : -1;
+
+            int newIndex;
+            if (direction == RotationDirection.Right)
+                newIndex = Math.Min(currentIndex + 1, completions.Count - 1);
+            else
+                newIndex = Math.Max(currentIndex - 1, 0);
+
+            completionSet.SelectionStatus = new CompletionSelectionStatus(completions[newIndex], true, true);
         }
     }
 }
